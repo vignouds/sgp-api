@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -24,11 +25,13 @@ public class CollaborateurApiController {
 	@Autowired
 	private CollaborateurRepository collaborateurRepository;
 
+	@CrossOrigin
 	@GetMapping
 	public List<Collaborateur> listerCollaborateurs() {
 		return this.collaborateurRepository.findAll();
 	}
 
+	@CrossOrigin
 	@GetMapping(params = "departement")
 	public List<Collaborateur> findCollaborateurByDepartementId(@RequestParam("departement") Integer id) {
 
@@ -36,6 +39,7 @@ public class CollaborateurApiController {
 				.filter(collab -> collab.getDepartement().getId().equals(id)).collect(Collectors.toList());
 	}
 
+	@CrossOrigin
 	@GetMapping("/{collaborateurMatricule}")
 	public Collaborateur findCollaborateur(@PathVariable String collaborateurMatricule) throws ItemNotFoundException {
 
@@ -46,6 +50,7 @@ public class CollaborateurApiController {
 		return this.collaborateurRepository.findByMatricule(collaborateurMatricule);
 	}
 
+	@CrossOrigin
 	@PutMapping("/{collaborateurMatricule}")
 	public void majCollaborateur(@PathVariable String collaborateurMatricule, @RequestBody Collaborateur collaborateur)
 			throws ItemNotFoundException {
@@ -58,6 +63,7 @@ public class CollaborateurApiController {
 		this.collaborateurRepository.save(collaborateur);
 	}
 
+	@CrossOrigin
 	@GetMapping("/{collaborateurMatricule}/banque")
 	public CoordonneesBancaires findCollaborateurCoordoBancaires(@PathVariable String collaborateurMatricule)
 			throws ItemNotFoundException {
@@ -69,6 +75,7 @@ public class CollaborateurApiController {
 		return this.collaborateurRepository.findByMatricule(collaborateurMatricule).getCoordonneesBancaires();
 	}
 
+	@CrossOrigin
 	@PutMapping("/{collaborateurMatricule}/banque")
 	public void majCoordonnesBancaires(@PathVariable String collaborateurMatricule,
 			@RequestBody CoordonneesBancaires coordonneesBancaires) throws ItemNotFoundException {
