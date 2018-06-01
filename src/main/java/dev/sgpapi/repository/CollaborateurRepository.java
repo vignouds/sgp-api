@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import dev.sgpapi.entite.Collaborateur;
 
 public interface CollaborateurRepository extends JpaRepository<Collaborateur, Integer> {
-
+	Collaborateur findByMatricule(String matricule);
 }

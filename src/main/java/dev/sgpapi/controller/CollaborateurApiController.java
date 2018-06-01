@@ -4,21 +4,42 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.sgpapi.entite.Collaborateur;
+import dev.sgpapi.exception.ItemNotFoundException;
 import dev.sgpapi.repository.CollaborateurRepository;
 
 @RestController
-@RequestMapping("/api/collaborateurs")
 public class CollaborateurApiController {
 
 	@Autowired
 	private CollaborateurRepository collaborateurRepository;
 
-	@GetMapping
+	@GetMapping("/api/collaborateurs")
 	public List<Collaborateur> listerCollaborateurs() {
 		return this.collaborateurRepository.findAll();
 	}
+
+	// GET /api/collaborateurs?departement=[ID_DEPARTEMENT]
+
+	// GET /api/collaborateurs/[MATRICULE]
+
+	@GetMapping("/api/collaborateurs/{collaborateurMatricule}")
+	public Collaborateur findCollaborateur(@PathVariable String collaborateurMatricule) throws ItemNotFoundException {
+
+		if (this.collaborateurRepository.findByMatricule(collaborateurMatricule) == null) {
+			throw new ItemNotFoundException();
+		}
+
+		return this.collaborateurRepository.findByMatricule(collaborateurMatricule);
+	}
+
+	// PUT /api/collaborateurs/[MATRICULE]
+
+	// GET /api/collaborateurs/[MATRICULE]/banque
+
+	// PUT /api/collaborateurs/[MATRICULE]/banque
+
 }
