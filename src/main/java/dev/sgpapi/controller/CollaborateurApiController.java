@@ -71,6 +71,16 @@ public class CollaborateurApiController {
 		return this.collaborateurRepository.findByMatricule(collaborateurMatricule).getCoordonneesBancaires();
 	}
 
-	// PUT /api/collaborateurs/[MATRICULE]/banque
+	@PutMapping("/api/collaborateurs/{collaborateurMatricule}/banque")
+	public void majCoordonnesBancaires(@PathVariable String collaborateurMatricule,
+			@RequestBody CoordonneesBancaires coordonneesBancaires) throws ItemNotFoundException {
 
+		Collaborateur collaborateur = this.collaborateurRepository.findByMatricule(collaborateurMatricule);
+		if (collaborateur == null) {
+			throw new ItemNotFoundException();
+		}
+
+		collaborateur.setCoordonneesBancaires(coordonneesBancaires);
+		this.collaborateurRepository.save(collaborateur);
+	}
 }
