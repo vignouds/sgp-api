@@ -11,7 +11,6 @@ import dev.sgpapi.entite.Collaborateur;
 import dev.sgpapi.entite.CoordonneesBancaires;
 import dev.sgpapi.entite.Departement;
 import dev.sgpapi.repository.CollaborateurRepository;
-import dev.sgpapi.repository.CoordonneesBancairesRepository;
 import dev.sgpapi.repository.DepartementRepository;
 
 @Service
@@ -22,8 +21,6 @@ public class InitialiserDonneesServiceDev implements InitialiserDonneesService {
 	CollaborateurRepository collaborateurRepository;
 	@Autowired
 	DepartementRepository departementRepository;
-	@Autowired
-	CoordonneesBancairesRepository coordonneesBancairesRepository;
 
 	@Override
 	public void initialiser() {
@@ -45,9 +42,6 @@ public class InitialiserDonneesServiceDev implements InitialiserDonneesService {
 		departementRepository.save(departement1);
 		departementRepository.save(departement2);
 		departementRepository.save(departement3);
-		coordonneesBancairesRepository.save(coordonneesBancaires1);
-		coordonneesBancairesRepository.save(coordonneesBancaires2);
-		coordonneesBancairesRepository.save(coordonneesBancaires3);
 		collaborateurRepository.save(collaborateur1);
 		collaborateurRepository.save(collaborateur2);
 		collaborateurRepository.save(collaborateur3);

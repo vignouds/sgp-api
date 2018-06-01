@@ -3,12 +3,12 @@ package dev.sgpapi.entite;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Collaborateur {
@@ -35,7 +35,7 @@ public class Collaborateur {
 	private boolean actif;
 	@ManyToOne
 	private Departement departement;
-	@OneToOne
+	@Embedded
 	private CoordonneesBancaires coordonneesBancaires;
 
 	public Collaborateur() {

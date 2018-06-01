@@ -70,7 +70,6 @@ public class CollaborateurApiController {
 
 		return this.collaborateurRepository.findByMatricule(collaborateurMatricule).getCoordonneesBancaires();
 	}
-	// GET /api/collaborateurs/[MATRICULE]/banque
 
 	// PUT /api/collaborateurs/[MATRICULE]/banque
 
