@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.sgpapi.entite.Collaborateur;
+import dev.sgpapi.entite.CoordonneesBancaires;
 import dev.sgpapi.exception.ItemNotFoundException;
 import dev.sgpapi.repository.CollaborateurRepository;
 
@@ -23,6 +24,17 @@ public class CollaborateurApiController {
 	public List<Collaborateur> listerCollaborateurs() {
 		return this.collaborateurRepository.findAll();
 	}
+
+	/*
+	 * @GetMapping("/api/collaborateurs") public List<Collaborateur>
+	 * findCollaborateurByDepartementId(@RequestParam("departement") Integer id)
+	 * {
+	 * 
+	 * return this.collaborateurRepository.findAll().stream() .filter(collab ->
+	 * collab.getDepartement().getId().equals(id)).collect(Collectors.toList());
+	 * 
+	 * }
+	 */
 
 	// GET /api/collaborateurs?departement=[ID_DEPARTEMENT]
 
@@ -48,8 +60,16 @@ public class CollaborateurApiController {
 		this.collaborateurRepository.save(collaborateur);
 	}
 
-	// PUT /api/collaborateurs/[MATRICULE]
+	@GetMapping("/api/collaborateurs/{collaborateurMatricule}/banque")
+	public CoordonneesBancaires findCollaborateurCoordoBancaires(@PathVariable String collaborateurMatricule)
+			throws ItemNotFoundException {
 
+		if (this.collaborateurRepository.findByMatricule(collaborateurMatricule) == null) {
+			throw new ItemNotFoundException();
+		}
+
+		return this.collaborateurRepository.findByMatricule(collaborateurMatricule).getCoordonneesBancaires();
+	}
 	// GET /api/collaborateurs/[MATRICULE]/banque
 
 	// PUT /api/collaborateurs/[MATRICULE]/banque
